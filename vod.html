@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html xmlns:gs="http://www.gensee.com/ec">
+<head>
+<meta charset="utf-8" />
+<title>webplayer vod</title>
+<link rel="stylesheet" type="text/css" href="static/css/common.css">
+<link rel="stylesheet" type="text/css" href="static/css/jquery-ui-1.10.3.custom.gs.min.css">
+<link rel="stylesheet" type="text/css" href="static/css/main.css">
+
+<script type="text/javascript" src="static/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="http://static.gensee.com/webcast/static/sdk/js/gssdk.js"></script>
+<script type="text/javascript" src="static/js/json2.js"></script>
+<script type="text/javascript" src="static/js/webplayer.common.js"></script>
+<script type="text/javascript" src="static/js/webplayer.vod.js"></script>
+<script type="text/javascript" src="static/js/jquery-ui-1.10.3.custom.min.js"></script>
+
+<!--[if IE 6]>
+<script type="text/javascript" src="static/js/DD_belatedPNG.js"></script>
+<script type="text/javascript">
+	DD_belatedPNG.fix('.tran');
+    DD_belatedPNG.fix('.comm-title');
+</script>
+<![endif]-->
+</head>
+
+<body>
+
+<div class="web">
+	<img id="bgImg" class="bg-img" src="static/images/background-image.jpg" />
+	<div class="main">
+		<!--QA Area-->
+		<div class="qa-container">
+			<div class="comm-title">
+				<div class="qa-tabs">
+					<span class="current">问答</span>
+                    <span>聊天记录</span>
+					<span>留言</span>
+				</div>
+				<div class="s-btn">
+					<a class="close-icon tran" href="javascript:;"></a>
+				</div>
+			</div>
+			<div class="qa-main">
+				<div class="qa-block-a">
+                    <div id="qa-list" class="qa-list">
+                        <ul>
+                            <li>
+                                <div class="Q">
+                                    <i class="q-icon"></i><b class="name">阿三：</b><span class="question">4.1版本有什么新功能？</span><span class="voi-re">[语音已回复]</span><em class="s-time">12:30:15</em>
+                                </div>
+                                <div class="A">
+                                    <b class="name">赵四：</b><span class="answer">4.1版本会提供全新的WEB端界面，提供方便的切换功能。</span><em class="s-time">12:30:15</em>
+                                </div>
+                            </li>
+                            <li class="qa-local">
+                                <div class="Q">
+                                    <i class="q-icon"></i><b class="name">阿三：</b><span class="question">4.1版本有什么新功能？</span><em class="s-time">12:30:15</em>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="Q">
+                                    <i class="q-icon"></i><b class="name">阿三：</b><span class="question">4.1版本有什么新功能？</span><span class="voi-re">[语音已回复]</span><em class="s-time">12:30:15</em>
+                                </div>
+                                <div class="A">
+                                    <b class="name">赵四：</b><span class="answer">4.1版本会提供全新的WEB端界面，提供方便的切换功能。</span><em class="s-time">12:30:15</em>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+				</div>
+                <div class="qa-block-c">
+                    <div id="chatRecord" class="chat-record">
+                        <ul class="msg-list">
+                            <li class="sys-msg"><i class="msg-time">10:31:23</i><span class="">系统</span>：欢迎进入直播室</li>
+                            <li class="my-msg"><i class="msg-time">10:31:23</i><span class="role-me">我</span>说：大家好</li>
+                            <li><i class="msg-time">10:31:23</i><span>wind</span>说：欢迎</li>
+                            <li><i class="msg-time">10:31:23</i><span>steven</span>对<span class="role-me">我</span>说：欢迎</li>
+                            <li class="my-msg"><i class="msg-time">10:31:23</i><span class="role-me">我</span>说：大家好</li>
+                            <li><i class="msg-time">10:31:23</i><span>wind</span>说：欢迎</li>
+                            <li><i class="msg-time">10:31:23</i><span>steven</span>对<span class="role-me">我</span>说：欢迎</li>
+                            <li class="my-msg"><i class="msg-time">10:31:23</i><span class="role-me">我</span>说：大家好</li>
+                            <li><i class="msg-time">10:31:23</i><span>wind</span>说：欢迎</li>
+                            <li><i class="msg-time">10:31:23</i><span>steven</span>对<span class="role-me">我</span>说：欢迎</li>
+                            <li class="my-msg"><i class="msg-time">10:31:23</i><span class="role-me">我</span>说：大家好</li>
+                            <li><i class="msg-time">10:31:23</i><span>wind</span>说：欢迎</li>
+                            <li><i class="msg-time">10:31:23</i><span>steven</span>对<span class="role-me">我</span>说：欢迎</li>
+                        </ul>
+                    </div>
+                </div>
+				<div class="qa-block-b" style="display:none;">
+					<div id="leaveMsgList" class="qa-list">
+						<dl>
+							<dt>4.1版本有什么新功能？</dt>
+							<dd><span class="u">秦有根</span> | <i>14:30:00</i></dd>
+							<dd class="msg">
+								4.1版本会提供全新的WEB端界面，提供方便的切换功能。
+							</dd>
+						</dl>
+						<dl>
+							<dt>4.1版本有什么新功能？</dt>
+							<dd><span class="u">秦有根</span> | <i>14:30:00</i></dd>
+							<dd class="msg">
+								4.1版本会提供全新的WEB端界面，提供方便的切换功能。
+							</dd>
+						</dl>
+						<dl>
+							<dt>4.1版本有什么新功能？</dt>
+							<dd><span class="u">秦有根</span> | <i>14:30:00</i></dd>
+							<dd class="msg">
+								4.1版本会提供全新的WEB端界面，提供方便的切换功能。
+							</dd>
+						</dl>
+						<dl>
+							<dt>4.1版本有什么新功能？</dt>
+							<dd><span class="u">秦有根</span> | <i>14:30:00</i></dd>
+							<dd class="msg">
+								4.1版本会提供全新的WEB端界面，提供方便的切换功能。
+							</dd>
+						</dl>
+						<dl>
+							<dt>4.1版本有什么新功能？</dt>
+							<dd><span class="u">秦有根</span> | <i>14:30:00</i></dd>
+							<dd class="msg">
+								4.1版本会提供全新的WEB端界面，提供方便的切换功能。
+							</dd>
+						</dl>
+						<dl>
+							<dt>4.1版本有什么新功能？</dt>
+							<dd><span class="u">秦有根</span> | <i>14:30:00</i></dd>
+							<dd class="msg">
+								4.1版本会提供全新的WEB端界面，提供方便的切换功能。
+							</dd>
+						</dl>
+					</div>
+					<div class="ask-area-b">
+						<h4>留言</h4>
+						<div class="input-email">
+							<input id="leaveMsgEmail" type="text" value="请留下Email以便回复您的问题"  onblur="if(this.value==''){this.value='请留下Email以便回复您的问题'}" onfocus="if(this.value=='请留下Email以便回复您的问题'){this.value=''}">
+						</div>
+						<div class="ask-input">
+							<div class="text-area">
+								<textarea id="leaveMsgText"></textarea>
+							</div>
+							<div class="qa-send-btn-wrap">
+								<input class="qa-send-btn" type="submit" value="发送" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--QA Area End-->
+		
+		<!--PPT Area-->
+		<div id="widget-doc" class="ppt-container">
+			<div class="comm-title">
+				<a class="logo" href="http://www.gensee.com" target="_blank"><img class="tran" src="static/images/logo.png" /></a>
+				<div class="s-btn">
+                    <a class="accessory-icon tran" href="javascript:;" onClick="accessoryShow();"></a>
+                    <a class="info-icon tran" href="javascript:;" onClick="pptInfoShow();"></a>
+                    <em class="sep-line tran"></em>
+                    <a class="maximize-icon tran" href="javascript:;" onClick="pptScreenCtrl(1);"></a>
+                    <a class="fullscreen-exit-btn tran" href="javascript:;" onClick="pptScreenCtrl(0);"></a>
+                    <a class="close-icon tran" href="javascript:;"></a>
+				</div>
+			</div>
+            <div class="ppt-info">
+                <div class="ppt-info-hd">
+                    <h3>企业E-Learning国际论坛2013</h3>
+                    <a class="ppt-info-hide-btn" href="javascript:;" onclick="pptInfoHide()">收起</a>
+                </div>
+                <div class="ppt-info-inner">
+                    <div class="ppt-info-body">
+                        <dl class="ppt-dl">
+                            <dt>主讲人</dt>
+                            <dd>卢小燕</dd>
+                        </dl>
+                        <dl class="ppt-dl">
+                            <dt>内容<br>介绍</dt>
+                            <dd>E-Learning 的时代已经到来，学习技术已经进入了不段革新、无限可能性的时代。从2G到3G再到4G，从功能到智能再到云终端，从T9到全键盘再到多点触控，从600M到1.5G再到四核 ，从30万到500万再到1200万像素， 以及MEMS、3D、NFC、无线充电、防水……移动终端市场可谓瞬息万变。在这全球变化最快最多的行业，创新与控制成本事关成败。<br><br>
+                                数以万计移动终端企业的设计、制造、采购与决策人员每年汇聚于Mobile Win Show，寻找更多助其创新及控制成本的供应商：从IC到主板，从显示到ID，从电源到体验，从设计到制造，从方案到周边…… <br><br>
+                                如果您以移动终端行业为目标市场，请立即参与Mobile Win Show，获取更多市场机会！
+                            </dd>
+                        </dl>
+                        <dl class="ppt-dl">
+                            <dt>议程<br>安排</dt>
+                            <dd>
+                                09:30-9:40 <br>
+                                开幕致辞<br>
+                                诺基亚（中国）投资有限公司<br>
+                                系统工程和构架高级经理 甄军涛<br><br>
+
+                                09:40-10:10<br>
+                                移动计算设备触摸屏的发展<br>
+                                NPD DisplaySearch 分析师 于宁宁<br><br>
+
+                                10:10-10:40<br>
+                                电容式触摸屏现状和未来发展<br>
+                                赣州市德普特科技有限公司  副总经理  张恒军<br><br>
+
+                                10:40-11:10<br>
+                                智能手机的发展与趋势<br>
+                                上海天马微电子有限公司  LTPS  技术专家  徐彬城 <br><br>
+
+                                11:10-11:40<br>
+                                BOE On/In Cell Touch Strategy <br>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+			<div class="ppt-main">
+				<gs:doc class="doc-widget" site="192.168.1.142" ownerid="59dcfdd2b4864100b729008e5dc85354" uname="feil.wang" authcode="333333"/>
+			</div>
+		</div>
+		<!--PPT Area End-->
+
+        <!--Control Bar-->
+        <div class="control-container">
+            <div class="drag-handle"></div>
+            <div class="control-main">
+                <div class="vod-ctrl-left">
+                    <a id="playBtn" class="btn-play" href="javascript:;" title="播放"></a>
+                    <span class="current-play-time">1:00:23</span>
+                </div>
+                <div class="vod-ctrl-center">
+                    <div class="player-progress-bar-wrap">
+                        <div class="player-slider progress-bar-elapsed" style="width:30%;"></div>
+                        <div class="player-slider progress-bar-buffer" style="width:70%;"></div>
+                        <div id="playerProgressBar" class="player-progress-bar">
+                        </div>
+                    </div>
+                </div>
+                <div class="vod-ctrl-right">
+                    <span class="play-time">02:00:23</span>
+                    <div class="vod-ctrl-r-btn">
+                        <a id="soundBtn" class="horn-icon tran" href="javascript:;"></a>
+                        <div id="volSlider" class="vol-slider">
+                        </div>
+                        <a class="btn-switch" href="javascript:;" title="切换"></a>
+                        <a class="btn-signal" href="javascript:;" title="优选网络"  onClick="chooseNetShow();"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Control Bar End-->
+		
+		<!--Outline Area-->
+		<div class="outline-container">
+			<div class="comm-title">
+				<span>内容大纲</span>
+				<div class="s-btn">
+					<a class="close-icon tran" href="javascript:;"></a>
+				</div>
+			</div>
+			<div class="outline-main">
+				<div class="outline-top"><span class="fl">章节</span><span class="t">标题</span></div>
+				<div class="outline-list">
+					<ul>
+						<li class="row-bg"><a href="javascript:;" title="4.1开发计划大纲"><em>1</em>4.1开发计划大纲</a></li>
+						<li><a href="javascript:;" title="4.1开发计划功能"><em>2</em>4.1开发计划功能</a></li>
+						<li class="row-bg current"><a href="javascript:;" title="4.1开发计划大纲"><em>4</em>4.1开发计划大纲</a></li>
+						<li><a href="javascript:;" title="4.1开发计划功能"><em>5</em>4.1开发计划功能</a></li>
+						<li class="row-bg"><a href="javascript:;" title="4.1开发计划大纲"><em>5</em>4.1开发计划大纲</a></li>
+						<li><a href="javascript:;" title="4.1开发计划功能"><em>6</em>4.1开发计划功能</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!--Outline Area End-->
+		
+		<!--Video Area-->
+		<div id="widget-video" class="video-container">
+			<div class="comm-title">
+				<span>视频</span>
+				<div class="s-btn">
+                    <a class="maximize-icon tran" href="javascript:;" onClick="videoScreenCtrl();"></a>
+                    <a class="close-icon tran" href="javascript:;"></a>
+                    <a class="v-fullscreen-exit-btn tran" href="javascript:;" onClick="videoScreenCtrl();"></a>
+				</div>
+			</div>
+			<div class="player">
+				<gs:video-live site="192.168.1.142" ownerid="59dcfdd2b4864100b729008e5dc85354" uid="55831" uname="user5623" authcode="333333"/>
+			</div>
+		</div>
+		<!--Video Area End-->
+		
+		<div id="coverLayer"></div>
+	</div>
+	
+	
+	
+	<!--Bottom Shortcut Area-->
+	<div class="bottom tran">
+		<a id="bottomArrow" class="bottom-arrow" href="javascript:;"></a>
+		<div class="bottom-tray tran">
+			<ul id="shortcutList" class="shortcut">
+				<li class="shortcut-1 tran">
+					<a class="shortcut-layout-icon tran" href="javascript:openLayoutBar();"></a>
+					<span>布局</span>
+					<div class="quick-layout-tips tran">
+						<div><a href="javascript:;" onClick="webplayer.defaultLayout();">默认布局</a></div>
+						<div><a href="javascript:;" onClick="webplayer.easyLayout();">最简布局</a></div>
+						<div><a href="javascript:;" onClick="webplayer.leftRightChange();">左右互换</a></div>
+					</div>
+				</li>
+				<li class="shortcut-2 tran">
+					<a class="shortcut-ppt-icon tran" href="javascript:;"></a>
+					<span>文档</span>
+				</li>
+				<li class="shortcut-3 tran">
+					<a class="shortcut-video-icon tran" href="javascript:;"></a>
+					<span>视频</span>
+				</li>
+				<li class="shortcut-4 tran">
+					<a class="shortcut-outline-icon tran" href="javascript:;"></a>
+					<span>大纲</span>
+				</li>
+				<li class="shortcut-5 tran">
+					<a class="shortcut-qa-icon tran" href="javascript:;"></a>
+					<span>问答</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!--Bottom Shortcut End-->
+
+	
+</div>
+</body>
+</html>

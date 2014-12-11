@@ -1,0 +1,66 @@
+@charset "utf-8";
+/*********************
+* webplayer
+* Author: Feil.Wang
+* Date: 2013.07 
+*********************/
+html{ height:100%; overflow:auto;}
+body { font:12px/1.5  Simsun, Tahoma, Helvetica, Arial, sans-serif; color:#333; height:100%; position:relative; overflow:hidden; word-break: break-all; }
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, select, button, textarea, p, blockquote, th, td, a { margin:0; padding:0; -webkit-text-size-adjust:none; outline:none; }
+table { border-collapse:collapse; border-spacing:0; }
+fieldset, img { border:none; }
+address, button, caption, cite, code, dfn, em, i, input, optgroup, option, select, textarea, th, var { font-style:normal; font-weight:normal;  font-family:Simsun; font-size:inherit;}
+li { list-style:none; }
+em, i { font-style: normal; }
+h1, h2, h3, h4, h5, h6 { font-size:100%; font-weight:normal;}
+h1 { font-size:20px; }
+h2 { font-size:18px; }
+h3 { font-size:16px; }
+input::-moz-focus-inner{ border:0;padding: 0;}
+a{ color:#333; text-decoration:none;}
+.c-blue{ color:#0088cc;}
+.c-green{ color:#006d24;}
+.c-red{ color:#F00;}
+.c-orange{ color:#ff9900;}
+.fl { float:left; }
+.fr { float:right; }
+.clearfix:after { content:''; display:block; height:0; clear:both; visibility: hidden; }
+.clearfix{ *zoom:1}
+.clear { clear:both; height:0; overflow:hidden }
+.gray-line{clear:both; height:2px; background-color:#d0d0d0; font-size:0; overflow:hidden;}
+
+.paddleft10{ padding-left:10px;}
+.paddright10{ padding-right:10px;}
+.margleft10{ margin-left:10px;}
+.margright10{ margin-right:10px;}
+
+.f10{ font-size:10px;}
+.f12{ font-size:12px;}
+.f14{ font-size:14px;}
+
+.checkbox input{ vertical-align:middle; margin:0 2px 3px 0;}
+.radio input{ vertical-align:middle; margin:0 3px 3px 0;}
+
+/*chrome scrollbar style*/
+::-webkit-scrollbar{
+	width: 9px;
+	height: 9px;
+}
+::-webkit-scrollbar-thumb{
+	overflow: visible;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	background: rgba(102, 102, 102, .3);
+}
+::-webkit-scrollbar-thumb:hover{
+	background: rgba(102, 102, 102, .4);
+}
+::-webkit-scrollbar-thumb:active{
+	background: rgba(102, 102, 102, .5);
+}
+
+
+
+
+
+

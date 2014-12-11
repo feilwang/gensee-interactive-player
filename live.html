@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html xmlns:gs="http://www.gensee.com/ec">
+<head>
+	<meta charset="utf-8" />
+	<title>webplayer live</title>
+	<link rel="stylesheet" type="text/css" href="static/css/common.css">
+	<link rel="stylesheet" type="text/css" href="static/css/jquery-ui-1.10.3.custom.gs.min.css">
+	<link rel="stylesheet" type="text/css" href="static/css/main.css">
+
+	<script type="text/javascript" src="static/js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="http://192.168.1.106/webcast/static/sdk/js/gssdk.js"></script>
+	<script type="text/javascript" src="static/js/json2.js"></script>
+	<script type="text/javascript" src="static/js/webplayer.common.js"></script>
+	<script type="text/javascript" src="static/js/webplayer.live.js"></script>
+	<script type="text/javascript" src="static/js/jquery-ui-1.10.3.custom.min.js"></script>
+
+	<!--[if IE 6]>
+	<script type="text/javascript" src="static/js/DD_belatedPNG.js"></script>
+	<script type="text/javascript">
+		DD_belatedPNG.fix('.tran');
+		DD_belatedPNG.fix('.comm-title');
+	</script>
+	<![endif]-->
+</head>
+
+<body>
+
+
+<!--测试按钮-->
+<div style="position: absolute; left: 5px; top: 5px; z-index: 99;">
+	<button onClick="callName();">点名</button>
+	<button onClick="lotteryShow();">抽奖</button>
+	<button onClick="$('.lottery-result-container').show();">批量抽奖结果</button>
+	<button onClick="accessoryShow();">附件</button>
+	<button onClick="voteShow();">投票调查</button>
+	<button onClick="voteResultShow();">调查结果</button>
+	<button onClick="switchVideoToPPT(1);">文档为主</button>
+	<button onClick="switchVideoToPPT(2);">视频为主</button>
+	<button onClick="$('#webVoiceWorking').show();">web语音邀请</button> <b style="color: #ffffff">→</b>
+	<button onClick="webVoiceDeviceAccredit();">允许</button>
+</div>
+
+<!--测试按钮 End-->
+
+
+<div class="web">
+	<img id="bgImg" class="bg-img" src="static/images/background-image.jpg" />
+	<div class="main">
+		<!--QA Area-->
+		<div class="qa-container">
+			<div class="comm-title">
+				<span>问答区</span>
+				<div class="s-btn">
+					<!--<a class="refresh-icon tran" href="javascript:;"></a>-->
+					<a class="close-icon tran" href="javascript:;"></a>
+				</div>
+			</div>
+			<div class="qa-main">
+				<div class="my-qa"><label class="checkbox"><input type="checkbox">只看我的提问</label></div>
+				<div id="qa-list" class="qa-list">
+					<ul>
+						<li>
+							<div class="A">
+								<b class="name">赵四：</b><span class="answer">4.1版本会提供全新的WEB端界面，提供方便的切换功能。</span><em class="s-time">12:30:15</em>
+							</div>
+							<div class="qa-quote">
+								<span class="quote-arrow"></span>
+								<div class="Q">
+									<i class="q-icon"></i><b class="name">阿三：</b><span class="question">4.1版本有什么新功能？</span><span class="voi-re">[语音已回复]</span><em class="s-time">12:30:15</em>
+								</div>
+								<div class="A">
+									<b class="name">赵四：</b><span class="answer">4.1版本会提供全新的WEB端界面，提供方便的切换功能。</span><em class="s-time">12:30:15</em>
+								</div>
+								<div class="A">
+									<b class="name">赵四：</b><span class="answer">4.1版本会提供全新的WEB端界面，提供方便的切换功能。</span><em class="s-time">12:30:15</em>
+								</div>
+							</div>
+						</li>
+						<li class="qa-local">
+							<div class="Q">
+								<i class="q-icon"></i><b class="name">阿三：</b><span class="question">4.1版本有什么新功能？</span><em class="s-time">12:30:15</em>
+							</div>
+						</li>
+						<li>
+							<div class="A">
+								<b class="name">赵四：</b><span class="answer">4.1版本会提供全新的WEB端界面，提供方便的切换功能。</span><em class="s-time">12:30:15</em>
+							</div>
+							<div class="qa-quote">
+								<span class="quote-arrow"></span>
+								<div class="Q">
+									<i class="q-icon"></i><b class="name">阿三：</b><span class="question">4.1版本有什么新功能？</span><span class="voi-re">[语音已回复]</span><em class="s-time">12:30:15</em>
+								</div>
+								<div class="A">
+									<b class="name">赵四：</b><span class="answer">4.1版本会提供全新的WEB端界面，提供方便的切换功能。</span><em class="s-time">12:30:15</em>
+								</div>
+								<div class="A">
+									<b class="name">赵四：</b><span class="answer">4.1版本会提供全新的WEB端界面，提供方便的切换功能。</span><em class="s-time">12:30:15</em>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="ask-area">
+					<h4>专家为你解答一切问题</h4>
+					<div class="ask-input">
+						<div class="text-area">
+							<textarea id="qa-text-area" placeholder="请输入问题"></textarea>
+						</div>
+						<div class="qa-send-btn-wrap">
+							<input class="qa-send-btn" type="submit" value="发送" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--QA Area End-->
+
+		<!--PPT Area-->
+		<div id="widget-doc" class="ppt-container">
+			<div class="comm-title">
+				<a class="logo" href="http://www.gensee.com" target="_blank"><img class="tran" src="static/images/logo.png" /></a>
+				<div class="s-btn">
+					<!--<a class="callname-icon tran" href="javascript:;"></a>
+					<a class="vote-icon tran" href="javascript:;"></a>
+					<a class="raffle-icon tran" href="javascript:;"></a>-->
+					<!--<a class="share-icon tran" href="javascript:;" title="分享" onclick="shareShow();"></a>-->
+					<a class="handle-icon tran" href="javascritpt:;" title="举手"></a><span class="handle-time">(60秒)</span>
+					<a class="earphone-icon tran" href="javascript:;" title="申请互动语音" data-status="0" onclick="applyforVioceShow()"></a>
+					<em class="sep-line tran"></em>
+					<a class="accessory-icon tran" href="javascript:;" onClick="accessoryShow();"></a>
+					<a class="info-icon tran" href="javascript:;" onClick="pptInfoShow();"></a>
+					<em class="sep-line tran"></em>
+					<a class="maximize-icon tran" href="javascript:;" onClick="pptScreenCtrl(1);"></a>
+					<a class="fullscreen-exit-btn tran" href="javascript:;" onClick="pptScreenCtrl(0);"></a>
+					<a class="close-icon tran" href="javascript:;"></a>
+				</div>
+			</div>
+			<div class="ppt-info">
+				<div class="ppt-info-hd">
+					<h3>企业E-Learning国际论坛2013</h3>
+					<a class="ppt-info-hide-btn" href="javascript:;" onclick="pptInfoHide()">收起</a>
+				</div>
+				<div class="ppt-info-inner">
+					<div class="ppt-info-body">
+						<dl class="ppt-dl">
+							<dt>主讲人：</dt>
+							<dd>卢小燕</dd>
+						</dl>
+						<dl class="ppt-dl">
+							<dt>内容介绍：</dt>
+							<dd>E-Learning 的时代已经到来，学习技术已经进入了不段革新、无限可能性的时代。从2G到3G再到4G，从功能到智能再到云终端，从T9到全键盘再到多点触控，从600M到1.5G再到四核 ，从30万到500万再到1200万像素， 以及MEMS、3D、NFC、无线充电、防水……移动终端市场可谓瞬息万变。在这全球变化最快最多的行业，创新与控制成本事关成败。<br><br>
+								数以万计移动终端企业的设计、制造、采购与决策人员每年汇聚于Mobile Win Show，寻找更多助其创新及控制成本的供应商：从IC到主板，从显示到ID，从电源到体验，从设计到制造，从方案到周边…… <br><br>
+								如果您以移动终端行业为目标市场，请立即参与Mobile Win Show，获取更多市场机会！
+							</dd>
+						</dl>
+						<dl class="ppt-dl">
+							<dt>议程安排：</dt>
+							<dd>
+								09:30-9:40 <br>
+								开幕致辞<br>
+								诺基亚（中国）投资有限公司<br>
+								系统工程和构架高级经理 甄军涛<br><br>
+
+								09:40-10:10<br>
+								移动计算设备触摸屏的发展<br>
+								NPD DisplaySearch 分析师 于宁宁<br><br>
+
+								10:10-10:40<br>
+								电容式触摸屏现状和未来发展<br>
+								赣州市德普特科技有限公司  副总经理  张恒军<br><br>
+
+								10:40-11:10<br>
+								智能手机的发展与趋势<br>
+								上海天马微电子有限公司  LTPS  技术专家  徐彬城 <br><br>
+
+								11:10-11:40<br>
+								BOE On/In Cell Touch Strategy <br>
+							</dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+			<div class="ppt-main">
+				<gs:doc class="doc-widget" site="192.168.1.106:80" ownerid="6e20781b686144d6ae983017c5cb647a" uname="feil.wang" />
+			</div>
+		</div>
+		<!--PPT Area End-->
+
+		<!--Control Bar-->
+		<div class="control-container">
+			<div class="drag-handle"></div>
+			<div class="control-main">
+				<div class="live-ctrl-left">
+					<div class="live-status">正在直播</div>
+					<div class="live-title">2014IBM WebSphere应用架构高峰会</div>
+				</div>
+				<div class="live-ctrl-right">
+					<a id="soundBtn" class="horn-icon tran" href="javascript:;"></a>
+					<div id="volSlider" class="vol-slider">
+					</div>
+					<a id="videoCtrlBtn" class="btn-close-video" href="javascript:;" title="关闭视频"></a>
+					<a class="btn-switch" href="javascript:;" title="切换"></a>
+					<a class="btn-signal" href="javascript:;" title="优选网络"  onClick="chooseNetShow();"></a>
+				</div>
+			</div>
+		</div>
+		<!--Control Bar End-->
+
+		<!--Video Area-->
+		<div id="widget-video" class="video-container">
+			<div class="comm-title">
+				<span>视频</span>
+				<div class="s-btn">
+					<a class="maximize-icon tran" href="javascript:;" onClick="videoScreenCtrl();"></a>
+					<a class="close-icon tran" href="javascript:;"></a>
+					<a class="v-fullscreen-exit-btn tran" href="javascript:;" onClick="videoScreenCtrl();"></a>
+				</div>
+			</div>
+			<div class="player">
+				<gs:video-live site="192.168.1.106:80" ownerid="6e20781b686144d6ae983017c5cb647a" uname="feil"/>
+			</div>
+		</div>
+		<!--Video Area End-->
+
+		<!--Chat Area-->
+		<div class="chat-container">
+			<div class="comm-title">
+				<span>公共聊天</span>
+				<div class="s-btn">
+					<a id="userList" class="user-icon tran" href="javascript:;"></a>
+					<a class="close-icon tran" href="javascript:;"></a>
+				</div>
+			</div>
+			<div class="user-list-wrap">
+				<h4>用户<span> (8)</span></h4>
+				<ul class="user-list">
+					<li><a href="javascript:;">abcdef</a></li>
+					<li class="even"><a href="javascript:;">abcdef</a></li>
+					<li><a href="javascript:;">abcdef</a></li>
+					<li class="even"><a href="javascript:;">abcdef</a></li>
+					<li><a href="javascript:;">abcdef</a></li>
+					<li class="even"><a href="javascript:;">abcdef</a></li>
+					<li><a href="javascript:;">abcdef</a></li>
+					<li class="even"><a href="javascript:;">abcdef</a></li>
+				</ul>
+			</div>
+			<div class="chat-main">
+				<div class="my-qa"><label class="checkbox"><input type="checkbox">只看我的聊天</label></div>
+				<div class="chat-cnt">
+					<ul class="msg-list">
+						<li class="sys-msg"><i class="msg-time">10:31:23</i><span class="">系统</span>：欢迎进入直播室</li>
+						<li class="my-msg"><i class="msg-time">10:31:23</i><span class="role-me">我</span>说：大家好</li>
+						<li><i class="msg-time">10:31:23</i><span>wind</span>说：欢迎</li>
+						<li><i class="msg-time">10:31:23</i><span>steven</span>对<span class="role-me">我</span>说：欢迎</li>
+						<li class="my-msg"><i class="msg-time">10:31:23</i><span class="role-me">我</span>说：大家好</li>
+						<li><i class="msg-time">10:31:23</i><span>wind</span>说：欢迎</li>
+						<li><i class="msg-time">10:31:23</i><span>steven</span>对<span class="role-me">我</span>说：欢迎</li>
+						<li class="my-msg"><i class="msg-time">10:31:23</i><span class="role-me">我</span>说：大家好</li>
+						<li><i class="msg-time">10:31:23</i><span>wind</span>说：欢迎</li>
+						<li><i class="msg-time">10:31:23</i><span>steven</span>对<span class="role-me">我</span>说：欢迎</li>
+						<li class="my-msg"><i class="msg-time">10:31:23</i><span class="role-me">我</span>说：大家好</li>
+						<li><i class="msg-time">10:31:23</i><span>wind</span>说：欢迎</li>
+						<li><i class="msg-time">10:31:23</i><span>steven</span>对<span class="role-me">我</span>说：欢迎</li>
+					</ul>
+				</div>
+				<div class="chat-operate">
+					<div class="chat-btm">
+						<div class="chat-input">
+							<div class="phiz">
+								<a class="phiz-btn" href="javascript:;"></a>
+								<ul id="phizList" class="phiz-list">
+									<li><a href="javascript:;"><img src="static/images/phiz/wx.gif" /></a></li>
+									<li><a href="javascript:;"><img src="static/images/phiz/dx.gif" /></a></li>
+									<li><a href="javascript:;"><img src="static/images/phiz/lw.gif" /></a></li>
+									<li><a href="javascript:;"><img src="static/images/phiz/mg.gif" /></a></li>
+									<li><a href="javascript:;"><img src="static/images/phiz/qiang.gif" /></a></li>
+									<li><a href="javascript:;"><img src="static/images/phiz/wx.gif" /></a></li>
+									<li><a href="javascript:;"><img src="static/images/phiz/dx.gif" /></a></li>
+									<li><a href="javascript:;"><img src="static/images/phiz/lw.gif" /></a></li>
+									<li><a href="javascript:;"><img src="static/images/phiz/mg.gif" /></a></li>
+									<li><a href="javascript:;"><img src="static/images/phiz/qiang.gif" /></a></li>
+									<li><a href="javascript:;"><img src="static/images/phiz/wx.gif" /></a></li>
+									<li><a href="javascript:;"><img src="static/images/phiz/dx.gif" /></a></li>
+								</ul>
+							</div>
+							<div id="chat-area" class="edit-area" contenteditable="true"></div>
+						</div>
+						<div class="chat-submit">
+							<div class="select-obj">
+								<span class="d">对</span>
+								<div class="select-box">
+									<div id="selectedName" class="name">所有人</div>
+									<div class="arrow"></div>
+									<div class="select-option">
+										<ul>
+											<li><a href="javascript:;"><b>所有人</b></a></li>
+											<li><a href="javascript:;">阿斯顿·马丁</a></li>
+											<li><a href="javascript:;">韩梅梅</a></li>
+											<li><a href="javascript:;">James</a></li>
+											<li><a href="javascript:;">李雷雷</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<input class="chat-send-btn" type="submit" value="发送" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--Chat Area End-->
+
+		<!--点名-->
+		<div class="callname-container">
+			<div class="comm-title">
+				<span>点名</span>
+				<div class="s-btn">
+					<a class="close-icon tran" href="javascript:;"  onClick="callNameClose();"></a>
+				</div>
+			</div>
+			<div class="callname-main">
+				<div class="callname-a">宋晓云（组织者）发起一次点名</div>
+				<div class="callname-b"><i>倒计时：</i><span>9</span></div>
+				<div class="callname-c"><a class="green-btn" href="javascript:;" onClick="callNameClose();"><span class="right-icon tran"></span>确认</a></div>
+			</div>
+		</div>
+		<!--点名 End-->
+
+		<!--抽奖-->
+		<div class="lottery-container">
+			<div class="comm-title">
+				<span>抽奖</span>
+				<div class="s-btn">
+					<a class="close-icon tran" href="javascript:;"  onClick="lotteryClose();"></a>
+				</div>
+			</div>
+			<div class="lottery-main">
+				<div class="lottery-m-top">
+					<h3 id="lotteryOwner" style="display:none;">恭喜 <span>张小五</span> 抽中了奖品！</h3>
+					<div class="lottery-animate">
+						<object width="100%" height="100%">
+							<param value="static/swf/lottery.swf" name="movie">
+							<param value="transparent" name="wmode">
+							<param value="high" name="quality">
+							<embed width="100%" align="middle" height="100%" wmode="transparent" src="static/swf/lottery.swf">
+						</object>
+					</div>
+				</div>
+			</div>
+			<div class="ripple-bg"></div>
+		</div>
+		<!--抽奖 End-->
+
+		<!--抽奖批量-->
+		<div class="lottery-result-container" style="display: none;">
+			<div class="comm-title">
+				<span>抽奖</span>
+				<div class="s-btn">
+					<a class="close-icon tran" href="javascript:;" onclick="$('.lottery-result-container').hide()"></a>
+				</div>
+			</div>
+			<div class="lottery-main">
+				<div class="lottery-result">
+					<div class="prize-winner-title">中奖名单</div>
+					<div class="prize-winner-box">
+						<table class="prize-winner-table" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td width="50%">sam.huang</td>
+								<td width="50%">feil.wang</td>
+							</tr>
+							<tr>
+								<td width="50%">张三</td>
+								<td width="50%">李四</td>
+							</tr>
+							<tr>
+								<td width="50%">sam.huang</td>
+								<td width="50%">feil.wang</td>
+							</tr>
+							<tr>
+								<td width="50%">张三</td>
+								<td width="50%">李四</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--抽奖批量 End-->
+
+		<!--附件-->
+		<div class="accessory-container">
+			<div class="comm-title">
+				<span>附件</span>
+				<div class="s-btn">
+					<a class="close-icon tran" href="javascript:;"  onClick="accessoryClose();"></a>
+				</div>
+			</div>
+			<div class="accessory-main">
+				<table class="a-file-list" cellpadding="0" cellspacing="0" border="0" width="100%">
+					<tr>
+						<td width="80%">1、开发计划.ppt</td>
+						<td width="20%"><a href="javascript:;" class="gray-btn-h22">Download</a></td>
+					</tr>
+					<tr class="even">
+						<td>2、开发流程.docx</td>
+						<td><a href="javascript:;" class="gray-btn-h22">下载</a></td>
+					</tr>
+					<tr>
+						<td>3、API接口文档.docx</td>
+						<td><a href="javascript:;" class="gray-btn-h22">下载</a></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<!--附件 End-->
+
+		<!--投票调查-->
+		<div class="vote-container" style="display: none;">
+			<div class="comm-title">
+				<span>投票调查</span>
+				<div class="s-btn">
+					<a class="minimize-icon tran" href="javascript:;"  onClick="voteMinimize();"></a>
+					<a class="close-icon tran" href="javascript:;"  onClick="voteClose();"></a>
+				</div>
+			</div>
+			<div class="vote-body">
+				<div class="vote-main">
+					<h3>本次调查的题目</h3>
+					<dl class="vote-item">
+						<dt><span class="histogram-icon"></span>1、【多选】"周末”是指哪一天？</dt>
+						<dd>
+							<label class="checkbox">
+								<input type="checkbox">
+								A.周五（周五才叫”周末“，因周六叫周六，周日叫周日）
+							</label>
+						</dd>
+						<dd>
+							<label class="checkbox">
+								<input type="checkbox">
+								B.周六（因为周日是一周的开始，所以周末应是周六）
+							</label>
+							<span class="right-ans">√ 正确答案</span>
+						</dd>
+						<dd>
+							<label class="checkbox">
+								<input type="checkbox">
+								C.周日（一周的最末一天，周末当然是周日咯！）
+							</label>
+						</dd>
+						<dd>
+							<label class="checkbox">
+								<input type="checkbox">
+								D.周六和周日（因为不上班嘛。）
+							</label>
+							<span class="right-ans">√ 正确答案</span>
+						</dd>
+					</dl>
+					<dl class="vote-item">
+						<dt><span class="histogram-icon"></span>2、【单选】环保部希望他国停止发布中国空气质量信息，你怎么看？</dt>
+						<dd>
+							<label class="radio">
+								<input type="radio" name="RadioGroup1">
+								A.支持，中方数据应由本国
+							</label>
+						</dd>
+						<dd>
+							<label class="radio">
+								<input type="radio" name="RadioGroup1">
+								B.反对，多方数据更可靠
+							</label>
+						</dd>
+						<dd>
+							<label class="radio">
+								<input type="radio" name="RadioGroup1">
+								C.提高空气质量才是关键
+							</label>
+							<span class="right-ans">√ 正确答案</span>
+						</dd>
+					</dl>
+					<dl class="vote-item">
+						<dt><span class="answer-icon"></span>3、【问答】怎么看刘翔超风速平世界纪录？</dt>
+						<dd>
+							<textarea class="vote-textarea"></textarea>
+						</dd>
+					</dl>
+					<div class="vote-submit">
+						<a href="javascript:;" class="green-btn" onClick="voteClose();"><span class="right-icon tran"></span>提交</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--投票调查 End-->
+
+		<!--投票调查结果-->
+		<div class="vote-result-container" style="display: none;">
+			<div class="comm-title">
+				<span>投票调查结果</span>
+				<div class="s-btn">
+					<a class="close-icon tran" href="javascript:;"  onClick="voteResultClose();"></a>
+				</div>
+			</div>
+			<div class="vote-body">
+				<div class="vote-main">
+					<h3>本次调查的结果</h3>
+					<dl class="vote-item">
+						<dt><span class="histogram-icon"></span>1、【多选】"周末”是指哪一天？</dt>
+						<dd class="clearfix">
+							<div class="vote-ans">
+								A.周五（周五才叫”周末“，因周六叫周六，周日叫周日）
+							</div>
+							<div class="vote-count">
+								<div class="vote-progress-bar">
+									<span style="width:4%;"></span>
+								</div>
+								<div class="num">4 <span>(4%)</span></div>
+							</div>
+						</dd>
+						<dd class="clearfix">
+							<div class="vote-ans">
+								B.周六（因为周日是一周的开始，所以周末应是周六）
+							</div>
+							<div class="vote-count">
+								<div class="vote-progress-bar">
+									<span style="width:46%;"></span>
+								</div>
+								<div class="num">46 <span>(46%)</span></div>
+							</div>
+						</dd>
+						<dd class="clearfix">
+							<div class="vote-ans">
+								C.周日（一周的最末一天，周末当然是周日咯！）
+							</div>
+							<div class="vote-count">
+								<div class="vote-progress-bar">
+									<span style="width:34%;"></span>
+								</div>
+								<div class="num">34 <span>(34%)</span></div>
+							</div>
+						</dd>
+						<dd class="clearfix">
+							<div class="vote-ans">
+								D.周六和周日（因为不上班嘛。）
+							</div>
+							<div class="vote-count">
+								<div class="vote-progress-bar">
+									<span style="width:16%;"></span>
+								</div>
+								<div class="num">16 <span>(16%)</span></div>
+							</div>
+						</dd>
+					</dl>
+					<dl class="vote-item">
+						<dt><span class="histogram-icon"></span>2、【单选】环保部希望他国停止发布中国空气质量信息，你怎么看？</dt>
+						<dd class="clearfix">
+							<div class="vote-ans">
+								A.支持，中方数据应由本国
+							</div>
+							<div class="vote-count">
+								<div class="vote-progress-bar">
+									<span style="display:none;"></span>
+								</div>
+								<div class="num">0 <span>(0%)</span></div>
+							</div>
+						</dd>
+						<dd class="clearfix">
+							<div class="vote-ans">
+								B.反对，多方数据更可靠
+							</div>
+							<div class="vote-count">
+								<div class="vote-progress-bar">
+									<span style="width:40%;"></span>
+								</div>
+								<div class="num">40 <span>(40%)</span></div>
+							</div>
+						</dd>
+						<dd class="clearfix">
+							<div class="vote-ans">
+								C.提高空气质量才是关键
+							</div>
+							<div class="vote-count">
+								<div class="vote-progress-bar">
+									<span style="width:60%;"></span>
+								</div>
+								<div class="num">60 <span>(60%)</span></div>
+							</div>
+						</dd>
+					</dl>
+					<dl class="vote-item">
+						<dt><span class="answer-icon"></span>3、【问答】怎么看刘翔超风速平世界纪录？</dt>
+						<dd>
+							刘翔以12秒87夺得冠军，这也是他个人史上最好成绩（尽管超风速不被承认），赢得尤金赛个人历史第四冠，保持赛季不败金身！
+						</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+		<!--投票调查结果 End-->
+
+		<!--优选网络-->
+		<div class="choose-net-container">
+			<div class="comm-title">
+				<span>优选网络</span>
+				<div class="s-btn">
+					<a class="close-icon tran" href="javascript:;"  onClick="chooseNetClose();"></a>
+				</div>
+			</div>
+			<div class="choose-net-main">
+				<h4>以下可以选择的网络途径:</h4>
+				<ul class="net-list">
+					<li>
+						<label class="radio">
+							<input type="radio" name="netlist"/>广东网通
+						</label>
+					</li>
+					<li>
+						<label class="radio">
+							<input type="radio" checked name="netlist" />浙江网通
+						</label>
+					</li>
+					<li>
+						<label class="radio">
+							<input type="radio" name="netlist"/>广东电信
+						</label>
+					</li>
+					<li>
+						<label class="radio">
+							<input type="radio" name="netlist"/>浙江电信
+						</label>
+					</li>
+				</ul>
+				<div class="net-submit">
+					<button class="blue-btn-b margright10" type="button"  onClick="chooseNetClose();">确定</button>
+					<button class="gray-btn-b" type="button"  onClick="chooseNetClose();">取消</button>
+				</div>
+			</div>
+		</div>
+		<!--优选网络 End-->
+
+		<!--文字直播-->
+		<div class="text-live-container box-isopen" style="display: none;">
+			<div class="text-live-inner">
+				<div class="text-live-left">
+					<a class="btn-textlive tran" href="javascript:;"></a>
+					<div class="lang-select">
+						<div id="selectLang" class="lang-select-b">
+							<em class="lang-ch"></em>
+							<span>中文</span>
+							<s></s>
+						</div>
+						<ul class="lang-list">
+							<li><em class="lang-ch"></em><span>中文</span></li>
+							<li><em class="lang-en"></em><span>英文</span></li>
+							<li><em class="lang-jp"></em><span>日文</span></li>
+						</ul>
+					</div>
+				</div>
+				<div class="text-live-main">
+					<ul class="txt-cnt-list">
+						<li><b>移动互联网，发力在何处? </b><i>[15:35:05]</i></li>
+						<li>艾瑞视点：移动互联网商业模式发展解析 <i>[15:34:19]</i></li>
+						<li><b>移动互联网，发力在何处? </b><i>[15:35:05]</i></li>
+						<li>艾瑞视点：移动互联网商业模式发展解析 <i>[15:34:19]</i></li>
+						<li><b>移动互联网，发力在何处? </b><i>[15:35:05]</i></li>
+						<li>艾瑞视点：移动互联网商业模式发展解析 <i>[15:34:19]</i></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!--文字直播 END-->
+
+		<div class="state-tips">
+			<a class="close-btn" href="javascript:;" onclick="$(this).parent().hide()">×</a>
+			<h3><i class="i-horn"></i><span>广播消息</span></h3>
+			<div class="cnt"><span class="c-red">欢迎进入直播室</span></div>
+		</div>
+
+		<div class="state-tips">
+			<a class="close-btn" href="javascript:;" onclick="$(this).parent().hide()">×</a>
+			<h3><i class="i-question"></i><span>当前正在解答的问题</span></h3>
+			<div class="cnt">用户<span class="c-red">john</span>问：<span class="c-red">请问产品能否提供详细的技术参数表请问产品能否提供详细的技术参数表请问产品能否提供详细的技术参数表？</span></div>
+		</div>
+
+		<!--申请互动语音-->
+		<div class="applyfor-voice-container">
+			<div class="comm-title">
+				<span>申请互动语音</span>
+				<div class="s-btn">
+					<a class="close-icon tran" href="javascript:;"  onClick="applyforVioceClose();"></a>
+				</div>
+			</div>
+			<div class="applyfor-voice-main">
+				<div class="applyfor-voice-body">您的申请发出后需要管理员同意，请等待管理员的升级邀请</div>
+				<div class="applyfor-submit">
+					<button class="blue-btn-b margright10" type="button" onclick="applyForVoice();">确定</button>
+					<button class="gray-btn-b" type="button" onclick="applyforVioceClose();">取消</button>
+				</div>
+			</div>
+
+		</div>
+		<!--申请互动语音 End-->
+
+		<!--分享-->
+		<div id="sharePopup" class="share-container">
+			<a id="shareSideBtn" class="share-side-btn" href="javascript:;"></a>
+			<div class="share-main">
+				<dl class="fold-box">
+					<dt class="current"><a href="javascript:;">社交分享</a><span class="share-arrow"></span></dt>
+					<dd style="display:block;">
+						<ul class="share-list">
+							<li><a class="share-icon-btn share-icon-sina" href="#"></a><span>新浪微博</span></li>
+							<li><a class="share-icon-btn share-icon-tencent" href="#"></a><span>腾讯微博</span></li>
+							<li><a class="share-icon-btn share-icon-qzone" href="#"></a><span>QQ空间</span></li>
+							<li><a class="share-icon-btn share-icon-renren" href="#"></a><span>人人网</span></li>
+							<li><a class="share-icon-btn share-icon-email" href="#"></a><span>邮件全文</span></li>
+						</ul>
+					</dd>
+				</dl>
+				<dl class="fold-box">
+					<dt><a href="javascript:;">二维码</a><span class="share-arrow"></span></dt>
+					<dd>
+						<div class="qrcode"><img src="static/images/QRcode.png" ></div>
+					</dd>
+				</dl>
+				<dl class="fold-box">
+					<dt><a href="javascript:;">意见反馈</a><span class="share-arrow"></span></dt>
+					<dd>
+						<div class="feedback-box">
+							<textarea class="fb-textarea">请留下您的宝贵意见(200字内)</textarea>
+							<input class="fb-input" type="text" value="QQ、邮箱、手机">
+							<button class="fb-submit" type="button">提交</button>
+						</div>
+					</dd>
+				</dl>
+			</div>
+		</div>
+		<!--分享 End-->
+
+		<!--WEB语音-->
+		<div id="webVocieInvite" class="webvoice-container" style="display:none;">
+			<div class="comm-title">
+				<span>Web语音</span>
+			</div>
+			<div class="webvoice-main">
+				<div class="webvoice-icon"><img src="static/images/icon-webvoice.png"></div>
+				<div class="webvoice-msg">长青子向您发出语音对话邀请…</div>
+				<div class="webvoice-button"><button class="btn btn-orange" type="button" onclick="$('#webVoiceWorking').show();$('#webVocieInvite').hide();">接受</button><button class="btn btn-white" type="button" onclick="$('#webVocieInvite').hide();">拒绝</button></div>
+			</div>
+		</div>
+
+		<div id="webVoiceWorking" class="webvoice-container webvoice-step-1" style="display:none;">
+			<div class="comm-title">
+				<span>Web语音</span>
+			</div>
+			<div class="webvoice-main">
+				<div class="webvoice-block-1">
+					<div class="webvoice-tip">请点击下面“<em class="icon-allow"></em>允许”按钮</div>
+				</div>
+				<div class="webvoice-block-2">
+					<div>麦克风</div>
+					<div>
+						<select class="device-list">
+							<option>e2esoft VCam</option>
+						</select>
+					</div>
+					<div class="mic-adjust">
+						<em class="icon-mic"></em>
+						<div id="webvoiceVolSlider" class="vol-slider"></div>
+					</div>
+					<div class="webvoice-time">01:30</div>
+					<div class="webvoice-button"><button class="btn btn-orange" type="button" onclick="$('#webVoiceWorking').hide()">挂断</button></div>
+					<a id="webVoiceSettingBtn" href="javascript:;" class="icon-setting"></a>
+				</div>
+				<div class="flash-widget">
+					<!--Fixme start-->
+					<div style="width: 215px; height: 138px; border: 1px solid red; color: red;">Fixme:此处为web语音组件:<br>
+						gs:audio-live<br>
+						点击顶部测试按钮“允许”操作下一步
+					</div>
+					<!--Fixme end-->
+					<gs:audio-live  site="192.168.1.106:80" ownerid="6e20781b686144d6ae983017c5cb647a" controls="false"/>
+				</div>
+			</div>
+		</div>
+		<!--WEB语音 END-->
+
+		<div id="coverLayer"></div>
+	</div>
+
+
+
+	<!--Bottom Shortcut Area-->
+	<div class="bottom tran"><!--five items add class: four-shortcuts -->
+		<a id="bottomArrow" class="bottom-arrow tran" href="javascript:;"></a>
+		<div class="bottom-tray tran">
+			<ul id="shortcutList" class="shortcut">
+				<li class="shortcut-1 tran">
+					<a class="shortcut-layout-icon tran" href="javascript:openLayoutBar();"></a>
+					<span>布局</span>
+					<div class="quick-layout-tips tran">
+						<div><a href="javascript:;" onClick="webplayer.defaultLayout();">默认布局</a></div>
+						<div><a href="javascript:;" onClick="webplayer.easyLayout();">最简布局</a></div>
+						<div><a href="javascript:;" onClick="webplayer.leftRightChange();">左右互换</a></div>
+					</div>
+				</li>
+				<li class="shortcut-2 tran">
+					<a class="shortcut-ppt-icon tran" href="javascript:;"></a>
+					<span>文档</span>
+				</li>
+				<li class="shortcut-3 tran">
+					<a class="shortcut-video-icon tran" href="javascript:;"></a>
+					<span>视频</span>
+				</li>
+				<li class="shortcut-4 tran">
+					<a class="shortcut-chat-icon tran" href="javascript:;"></a>
+					<span>聊天</span>
+				</li>
+				<li class="shortcut-5 tran">
+					<a class="shortcut-qa-icon tran" href="javascript:;"></a>
+					<span>问答</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!--Bottom Shortcut End-->
+
+
+</div>
+</body>
+</html>
